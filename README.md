@@ -1,4 +1,4 @@
-# Natural Language Processing: Tweet Sentiment Predictions
+# TripAdvisor Reviews: Sentiment Predictions
 
 <p align="center">
   <img src="images/SXSW.jpg" />
