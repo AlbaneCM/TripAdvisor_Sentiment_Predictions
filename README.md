@@ -8,7 +8,7 @@
 
 
 
-<div style="margin-right: 5px; margin-left: -29px">
+<div style="margin-right: 5px; margin-left: -29px; display: flex; text-align: left; white-space: nowrap;">
   <img src="images/tripadvisor.jpg" alt="Alt text" width="100"/>
   <h1 style="white-space: nowrap;">Predicting TripAdvisor Review Sentiment</h1>
 </div>
