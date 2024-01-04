@@ -28,52 +28,56 @@
 <a id='overview'></a>
 ## 1. Overview
 
-This notebook examines tweets about Google and Apple products and predicts whether the sentiment of unseen tweets is positive or negative.
+This notebook examines reviews about hotels from guests who stayed there and predicts whether the sentiment of reviews is positive or negative.
 The organization of this notebook follows the CRoss Industry Standard Process for Data Mining (CRISP-DM) is a process model that serves as the base for a data science process.
-
 
 <a id='business_understanding'></a>
 ## 2. Business Understanding
 
-We, as the agency entrusted by Samsung, have been tasked with shaping the marketing strategy for the imminent <u>launch</u> of their cutting-edge <u>folding tablet</u>. 
-<br>Due to the unique nature of the product, substantial funds were allocated for research and development. Consequently, there is a constraint on budget for the launch phase. 
-<br>Nevertheless, Samsung aims to generate significant buzz around this groundbreaking product, confident that its innovation will speak for itself. 
+The increasing significance of online reputation and social media in the hospitality industry has become integral to a hotel's operational and financial success. The [report] (https://ecornell-impact.cornell.edu/the-impact-of-social-media-on-lodging-performance/) from Cornell's Center for Hospitality Research highlights the rising trend of consumers relying on online reviews during hotel bookings. The study reveals the link between a hotel's online reputation and its pricing, occupancy rates and revenue performance. 
+
+Recognizing the challenges faced by hotels in managing online reputation, a **new branch of TripAdvisor** is now dedicated to supporting hotels in identifying and **improving unsatisfied guests' experience** before they leave. 
+<br>Hyatt's corporate director of guest experience hired us to drive the strategy. 
+
+Through real-time guest reviews and a sophisticated algorithm, the platform alerts general managers about guests requiring immediate attention. The goal is to enable proactive measures to enhance satisfaction. This innovative tool, backed by an analysis of over 20,000 real guest reviews, also offers tailored recommendations for improvement upon implementation, aligning with the goal of turning [detractors](https://www.datasciencecentral.com/what-is-a-good-net-promoter-score-for-the-hotel-resort-industry/) into promoters. 
 
 
-In our initial conversations, it was recommened that the product be unveiled at South by Southwest, a major conference in the industry. The event has an `Interactive` division, which focuses on new technology where speakers, parties and trade shows are hosted. 
+<u>The Task</u>
+<br>Quickly and durably enhance guest satisfaction and improve online reputation
 
-The objective of this project has two main aspects: 
-1. Analyze the success stories of the two technology leaders in the industry at South by Southwest 
-    * Identify factors that were received positively to understand dynamics of a successful launch - and not positive responses to know what to avoid
-2. Predict the tweets' sentiment 
-    * Every strategy needs to measure the Return On Investment. Predicting tweet sentiment will provide a quantifiable metric to evaluate the efficacy of the deployed strategy.
-    
-    
-The target audience is Samsung marketing strategy teams. 
+<u>Objectives</u>
+1. improve guest experience
+    * offering customized recommendations targeting areas that historically caused guest complaints 
+2. reduce guest complaints
+    * identifying unsatisfied guests through real-time reviews, providing an opportunity to create a better experience
+
+<u>Target Audience</u>
+<br>Hyatt's corporate director of guest experience
 
 <a id='data_understanding'></a>
 ## 3. Data Understanding
 
 * **Data Source**
 
-The data comes from CrowdFlower via [data.world](https://data.world/crowdflower/brands-and-product-emotions). 
+The data is hosted on [Kaggle](https://www.kaggle.com/datasets/andrewmvd/trip-advisor-hotel-reviews) and is provided by *LARXEL*. 
 
-Tweets about the two leading technology brands and products were grouped into the dataset. The tweets were categorized by the sentiment that was expressed: positive, negative or neutral. The product or brand referenced by the short text is also indicated when known. 
+In order to access the file, access the data source through the link provided and click on the `download` button at the top right corner. This will download a zipped folder. The below code unzips it upon loading the data. 
 
-The file `judge-1377884607_tweet_product_company.csv` can be downloaded at the provided link. 
-It was then renamed to `tweet_product_company.csv`and saved into the current folder, within the 'data' subfolder, to be accessed into the raw DataFrame. 
+The dataset contains about twenty thousand reviews collected from a hotel's TripAdvisor page. Each review is assigned a rating from 1 to 5, 1 being the lowest (negative review), 5 being the highest (positive review).
+
 
 * **Features**
 
 Prior to preprocessing, the columns are: 
 
-  * `tweet_text`: the actual tweet's record
-  * `emotion_in_tweet_is_directed_at`: the product or company referred to in the tweet
-  * `is_there_an_emotion_directed_at_a_brand_or_product`: the tweet's sentiment
+* `Review`: the actual review's record
+* `Rating`: a number from 1 to 5, given by the guest at the time of the review
 
 * **Target**
 
-The tweet's sentiment is the target for the dataset. The specific column is `is_there_an_emotion_directed_at_a_brand_or_product`. Based on a given set of tweets, we will try to predict if the tweet's emotion was positive, negative or neutral. 
+The target will be identifying negative reviews. It will be created based on the `Rating` column, and will be named `Sentiment`. Based on a given set of reviews, I will predict if the review's sentiment was negative. To be more precise, it will be identified as `detractors`. This term is defined by the metric measuring online reputation: Net Promoter Score. 
+
+More on NPS below.
 
 <a id='data_preparation'></a>
 ## 4. Data Preparation
@@ -81,22 +85,42 @@ The tweet's sentiment is the target for the dataset. The specific column is `is_
 ### 4. 1- Data Cleaning
 In the first part of data preparation, the typical data cleaning tasks are addressed before splitting the set between train and test data. The steps include:
 
-  a)Column names' change<br>
-  The column names are particularly long. For an easier process to handle, they will be renamed in the new DataFrame called `df`:
-* `tweet`
-* `product_or_company`
-* `sentiment`
-  <br>b) Missing data was either dropped or replaced by 'undefined'
-  <br>c) Duplicates were dropped
-  <br>d) Sentiment classification was turned into a binary one
-    <br>Due to the nature of the target, we will focus on the positive tweets. Hence all the other tweets, whether they are neutral or negative, will be considered ***not positive***. For easier reference, it will be identified as ***negative***.
+* Missing data
+  <br>Missing values were inspected but none were found, no modification was necessary. 
+* Duplicates
+  <br>Duplicates were researched but none were found: no modification was necessary.
+* Binary classification
+  <br>Ratings range from 1 to 5, 1 being the lowest and 5 the highest.
+  <br>A new column `Sentiment` was created to group customers' reviews as follows: 
+    *  Reviews' rating ranging from 1 to 3 included: `detractors`
+    * All other reviews: `not_detractors`
+
+The reason for such a classification follows the definition of NPS score.
+
+**NPS Score**
+
+[![notext](images/nps-5-scale.png)](https://textexpander.com/blog/how-to-calculate-nps)
+
+<br>The Net Promoter Score (NPS) is a metric used to measure customer satisfaction and loyalty with a hotel, (or more generally a product, service, or company). It is based on the question: "How likely is it that you would recommend our *hotel*? 
+The responses can be measured on a scale from 0 to 10 or in our case: 1 to 5. 
+
 
 <p align="center">
-  <img src="images/tweets_per_sentiment.png" />
+  <img src="images/reviews_per_sentiment.png" />
 </p>
-  <br>e) Train-Test Split was performed
-  <br>The dataset is being divided into two separate subsets: a training set, and a testing (or validation) set. The validation set will allow to assess the performance of the model.
-  The dataset is split before any further transformation is done to prevent data leakage. 
+
+* Train-Test split
+<br>The dataset is being divided into two separate subsets: a training set, and a testing (or validation) set. The validation set will allow to assess the performance of the model.
+The dataset is split before any further transformation is done to prevent data leakage. 
+
+Two parameters were assigned:
+  * `random_state=42` for reproducibility
+  * `stratify=y` to address class imbalance issues
+
+* Encoding target
+In order to make predictions useable in calculations, I encoded the target: 
+* 0 replaced `not_detractors`
+* 1 replaced `detractors`
 
 ### 4. 2- Data Preprocessing & Exploratory Analysis
 
