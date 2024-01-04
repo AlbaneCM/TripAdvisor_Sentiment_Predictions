@@ -150,7 +150,7 @@ In order to preprocess the reviews, the following transformations were performed
 * **WordCloud**
     <br> The words' frequencies were represented visually thanks to the `WordCloud` package
   <p align="center">
-    <img src="images/wordcloud-detractors.PNG" />
+    <img src="images/wordcloud.png" />
   </p>
 
 
