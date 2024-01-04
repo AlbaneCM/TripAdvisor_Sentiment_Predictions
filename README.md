@@ -335,7 +335,7 @@ For additional info, contact [Albane Colmenares](mailto:albane.colmenares@gmail.
 ├── images
 ├── pdfs
 ├── .gitignore
-├── environment.yml
+├── cap_environment.yml
 ├── README.md
 ├── tripadvisor_reviews_detractors.ipynb
 
