@@ -102,7 +102,6 @@ The reason for such a classification follows the definition of NPS score.
 
 <p align="center">
   <img src="images/nps-5-scale.png" />
-  [notext](https://textexpander.com/blog/how-to-calculate-nps)
 </p>
 
 [![notext](images/nps-5-scale.png)](https://textexpander.com/blog/how-to-calculate-nps)
