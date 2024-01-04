@@ -217,7 +217,7 @@ The 7 models' results and their evaluation metrics are summarized below. The hig
 
   The most relevant ones can be summarized through the below bar chart.
   <p align="center">
-    <img src="images/final_model_names.PNG" />
+    <img src="images/final_model_names.png" />
   </p>  
   
 
