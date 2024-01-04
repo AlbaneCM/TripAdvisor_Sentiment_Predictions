@@ -102,9 +102,9 @@ The reason for such a classification follows the definition of NPS score.
 
 <p align="center">
   <img src="images/nps-5-scale.png" />
-</p>
+</p>[](https://textexpander.com/blog/how-to-calculate-nps)
 
-[![notext](images/nps-5-scale.png)](https://textexpander.com/blog/how-to-calculate-nps)
+[![notext](images/nps-5-scale.png)]
 
 <br>The Net Promoter Score (NPS) is a metric used to measure customer satisfaction and loyalty with a hotel, (or more generally a product, service, or company). It is based on the question: "How likely is it that you would recommend our *hotel*? 
 The responses can be measured on a scale from 0 to 10 or in our case: 1 to 5. 
