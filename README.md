@@ -36,22 +36,23 @@ The organization of this notebook follows the CRoss Industry Standard Process fo
 
 The increasing significance of online reputation and social media in the hospitality industry has become integral to a hotel's operational and financial success. The [report](https://ecornell-impact.cornell.edu/the-impact-of-social-media-on-lodging-performance/) from Cornell's Center for Hospitality Research highlights the rising trend of consumers relying on online reviews during hotel bookings. The study reveals the link between a hotel's online reputation and its pricing, occupancy rates and revenue performance. 
 
-Recognizing the challenges faced by hotels in managing online reputation, a **new branch of TripAdvisor** is now dedicated to supporting hotels in identifying and **improving unsatisfied guests' experience** before they leave. 
-<br>Hyatt's corporate director of guest experience hired us to drive the strategy. 
+Recognizing the challenges faced by hotels in managing online reputation, a **new branch of TripAdvisor** is now dedicated to supporting and advising hotels on how to **improve their online reputation**. The branch launched a new B2B product identifying **unsatisfied guests in real time** with the goal to improve their experience before they leave. 
+<br>Our first client is a worldwide hotel chain: Hyatt. The intended users are corporate directors of guest experience.  
 
 Through real-time guest reviews and a sophisticated algorithm, the platform alerts general managers about guests requiring immediate attention. The goal is to enable proactive measures to enhance satisfaction. This innovative tool, backed by an analysis of over 20,000 real guest reviews, also offers tailored recommendations for improvement upon implementation, aligning with the goal of turning [detractors](https://www.datasciencecentral.com/what-is-a-good-net-promoter-score-for-the-hotel-resort-industry/) into promoters. 
 
 
-**The Task:** Quickly and durably enhance guest satisfaction and improve online reputation
+**The Task**: Deploying Hyatt's strategy to increase their online reputation
+<br>
 
-**Objectives** 
+**Objectives**
 
-1. improve guest experience 
-    * by offering customized recommendations targeting areas that historically caused guest complaints 
+1. Short-term: improve guest experience 
+    * thanks to our customized recommendations targeting areas that historically caused guest complaints 
+<br>
 
-2. increase online reputation 
-    * reduce the share of negative reviews
-    * by identifying unsatisfied guests through real-time reviews, providing an opportunity to create a better experience
+2. Long-term: reduce the share of negative reviews  
+    * by identifying unsatisfied guests through real-time reviews, aiming at improving their experience before they leave
 
 **Target Audience:** Hyatt's corporate director of guest experience
 
