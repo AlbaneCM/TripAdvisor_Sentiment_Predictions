@@ -145,25 +145,33 @@ In order to preprocess the reviews, the following transformations were performed
     <br> The `WordNetLemmatizer` package from nltk.stem.wordnet was used to reduce words to their base form, allowing a more accurate analysis
 * **Frequency Distribution**
     <br>The `FreqDist` package was used to review in a dictionary-like output, the words and their frequencies
+
+  <p align="center">
+    <img src="images/word_freq.png" />
+  </p>
+
 * **WordCloud**
     <br> The words' frequencies were represented visually thanks to the `WordCloud` package
+  <p align="center">
+    <img src="images/wordcloud-detractors.PNG" />
+  </p>
+
+
 * **Bigrams**
     <br> Bigrams were drawn to have a better understanding of the themes thanks to the `collocations` package and its BigramAssocMeasures
+  <p align="center">
+    <img src="images/top_10_bigrams.png" />
+  </p>  
+
+
 * **Mutual Information Scores**
     <br> Bigrams that occur more than 5 times were examined through `mutual information scores`
 
-
     
 
-The preprocessing tasks were summarized as a function which was called both on the train and test data, defining the following columns:
-- `tweet_original`: keeping the original copy of tweets, unchanged
-- `tweet`: the preprocessed version of the tweets, including the above tasks
-- `tokenized_tweet` the preprocessed version of the tweets, not combined as list for each row
+The preprocessing tasks were summarized as a function which was called both on the train and test data. 
 
 
-<p align="center">
-  <img src="images/freq_by_sentiment.png" />
-</p>
 
 
 <a id='modeling'></a>
