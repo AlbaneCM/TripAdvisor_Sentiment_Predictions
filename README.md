@@ -42,11 +42,11 @@ Recognizing the challenges faced by hotels in managing online reputation, a **ne
 Through real-time guest reviews and a sophisticated algorithm, the platform alerts general managers about guests requiring immediate attention. The goal is to enable proactive measures to enhance satisfaction. This innovative tool, backed by an analysis of over 20,000 real guest reviews, also offers tailored recommendations for improvement upon implementation, aligning with the goal of turning [detractors](https://www.datasciencecentral.com/what-is-a-good-net-promoter-score-for-the-hotel-resort-industry/) into promoters. 
 
 
-<u>The Task</u>
+**The Task**
 
 Quickly and durably enhance guest satisfaction and improve online reputation
 
-<u>Objectives</u>
+**Objectives** 
 
 1. improve guest experience 
     * by offering customized recommendations targeting areas that historically caused guest complaints 
@@ -55,7 +55,7 @@ Quickly and durably enhance guest satisfaction and improve online reputation
     * reduce the share of negative reviews
     * by identifying unsatisfied guests through real-time reviews, providing an opportunity to create a better experience
 
-<u>Target Audience</u>
+**Target Audience**
 
 Hyatt's corporate director of guest experience
 
