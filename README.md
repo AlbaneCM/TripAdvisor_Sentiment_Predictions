@@ -118,24 +118,28 @@ The responses can be measured on a scale from 0 to 10 or in our case: 1 to 5.
 The dataset is split before any further transformation is done to prevent data leakage. 
 
 Two parameters were assigned:
-    * `random_state=42` for reproducibility
-    * `stratify=y` to address class imbalance issues
+- `random_state=42` for reproducibility
+-  `stratify=y` to address class imbalance issues
+
 
 * Encoding target
 In order to make predictions useable in calculations, I encoded the target: 
-* 0 replaced `not_detractors`
-* 1 replaced `detractors`
+  - 0 replaced `not_detractors`
+  - 1 replaced `detractors`
 
 ### 4. 2- Data Preprocessing & Exploratory Analysis
 
-In order to preprocess the tweets, the following transformations were performed: 
+In order to preprocess the reviews, the following transformations were performed: 
 * **Standardizing case**
-    <br>This step is important to ensure text is uniform and consistent. This prevents models from treating words with different cases as different ones
+    <br>This step was verified as it is important to ensure text is uniform and consistent. Nevertheless, no extra step was taken as text was already saved as lower case.
+
+* **Character Encoding**
+    <br> This was done to ensure consistent representation of text by transforming non-text characters into a normalized format, which will facilitate proper text processing, analysis, and model training.
     
 * **Tokenizing**
-    <br>Tokens of one or two consecutive words were created. This was done with the `RegexpTokenizer` package from nltk.tokenize <br>
+    <br>Tokens of words were created. This was done with the `RegexpTokenizer` package from nltk.tokenize. This step will facilitate the conversion of word into a suitable form for analysis and modeling.  <br>
 * **Stopwords** 
-    <br>To focus on the data's theme, English stopwords were removed. Manual additions were made in this text's context (i.e. "sxsw", "mention")  
+    <br>To focus on the data's theme, English stopwords were removed. Manual additions were made in this text's context, such as adding industry specific word (i.e. "hotel", "stay")  
 * **Lemmatize** 
     <br> The `WordNetLemmatizer` package from nltk.stem.wordnet was used to reduce words to their base form, allowing a more accurate analysis
 * **Frequency Distribution**
@@ -143,9 +147,12 @@ In order to preprocess the tweets, the following transformations were performed:
 * **WordCloud**
     <br> The words' frequencies were represented visually thanks to the `WordCloud` package
 * **Bigrams**
-    <br> Bigrams were drawn to have a better understanding of the themes, i.e. pop was identified with pop-up store, thanks to the `collocations` package and its BigramAssocMeasures
+    <br> Bigrams were drawn to have a better understanding of the themes thanks to the `collocations` package and its BigramAssocMeasures
 * **Mutual Information Scores**
     <br> Bigrams that occur more than 5 times were examined through `mutual information scores`
+
+
+    
 
 The preprocessing tasks were summarized as a function which was called both on the train and test data, defining the following columns:
 - `tweet_original`: keeping the original copy of tweets, unchanged
