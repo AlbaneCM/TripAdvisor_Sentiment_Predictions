@@ -105,7 +105,6 @@ The reason for such a classification follows the definition of NPS score.
 </p>
 
 
-
 The Net Promoter Score ([NPS](https://textexpander.com/blog/how-to-calculate-nps)) is a metric used to measure customer satisfaction and loyalty with a hotel, (or more generally a product, service, or company). It is based on the question: "How likely is it that you would recommend our *hotel*? 
 The responses can be measured on a scale from 0 to 10 or in our case: 1 to 5. 
 
@@ -119,8 +118,8 @@ The responses can be measured on a scale from 0 to 10 or in our case: 1 to 5.
 The dataset is split before any further transformation is done to prevent data leakage. 
 
 Two parameters were assigned:
-  * `random_state=42` for reproducibility
-  * `stratify=y` to address class imbalance issues
+    * `random_state=42` for reproducibility
+    * `stratify=y` to address class imbalance issues
 
 * Encoding target
 In order to make predictions useable in calculations, I encoded the target: 
