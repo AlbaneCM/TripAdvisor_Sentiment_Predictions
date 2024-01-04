@@ -423,7 +423,7 @@ To do this in the future we would:
 
 
 ## For More Information 
-See the full analysis and code in the [Jupyter Notebook](notebook.pdf) as well as summary in this [presentation](presentation.pdf).
+See the full analysis and code in the [Jupyter Notebook](pdfs/notebook.pdf) as well as summary in this [presentation](pdfs/presentation.pdf).
 
 
 For additional info, contact [Albane Colmenares](mailto:albane.colmenares@gmail.com?subject=[GitHub]%20Source%20Han%20Sans)
@@ -432,11 +432,10 @@ For additional info, contact [Albane Colmenares](mailto:albane.colmenares@gmail.
 ```
 ├── data
 ├── images
+├── pdfs
 ├── .gitignore
+├── environment.yml
 ├── README.md
-├── natural-language-processing.ipynb
-├── presentation.pdf
-└── notebook.pdf
+├── tripadvisor_reviews_detractors.ipynb
 
 ```
-"# tripadvisor_sentiment" 
