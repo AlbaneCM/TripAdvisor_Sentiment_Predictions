@@ -42,9 +42,7 @@ Recognizing the challenges faced by hotels in managing online reputation, a **ne
 Through real-time guest reviews and a sophisticated algorithm, the platform alerts general managers about guests requiring immediate attention. The goal is to enable proactive measures to enhance satisfaction. This innovative tool, backed by an analysis of over 20,000 real guest reviews, also offers tailored recommendations for improvement upon implementation, aligning with the goal of turning [detractors](https://www.datasciencecentral.com/what-is-a-good-net-promoter-score-for-the-hotel-resort-industry/) into promoters. 
 
 
-**The Task**
-
-Quickly and durably enhance guest satisfaction and improve online reputation
+**The Task:** Quickly and durably enhance guest satisfaction and improve online reputation
 
 **Objectives** 
 
@@ -55,9 +53,7 @@ Quickly and durably enhance guest satisfaction and improve online reputation
     * reduce the share of negative reviews
     * by identifying unsatisfied guests through real-time reviews, providing an opportunity to create a better experience
 
-**Target Audience**
-
-Hyatt's corporate director of guest experience
+**Target Audience:** Hyatt's corporate director of guest experience
 
 <a id='data_understanding'></a>
 ## 3. Data Understanding
@@ -103,6 +99,11 @@ In the first part of data preparation, the typical data cleaning tasks are addre
 The reason for such a classification follows the definition of NPS score.
 
 **NPS Score**
+
+<p align="center">
+  <img src="images/nps-5-scale.png" />
+  [notext](https://textexpander.com/blog/how-to-calculate-nps)
+</p>
 
 [![notext](images/nps-5-scale.png)](https://textexpander.com/blog/how-to-calculate-nps)
 
