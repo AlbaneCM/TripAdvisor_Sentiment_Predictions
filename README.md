@@ -146,9 +146,6 @@ In order to preprocess the reviews, the following transformations were performed
 * **Frequency Distribution**
     <br>The `FreqDist` package was used to review in a dictionary-like output, the words and their frequencies
 
-  <p align="center">
-    <img src="images/word_freq.png" />
-  </p>
 
 * **WordCloud**
     <br> The words' frequencies were represented visually thanks to the `WordCloud` package
@@ -159,9 +156,6 @@ In order to preprocess the reviews, the following transformations were performed
 
 * **Bigrams**
     <br> Bigrams were drawn to have a better understanding of the themes thanks to the `collocations` package and its BigramAssocMeasures
-  <p align="center">
-    <img src="images/top_10_bigrams.png" />
-  </p>  
 
 
 * **Mutual Information Scores**
@@ -177,35 +171,34 @@ The preprocessing tasks were summarized as a function which was called both on t
 <a id='modeling'></a>
 ## 5. Modeling
 
-We now have an initial idea for recommendations for the marketing strategy. Our objective is now to:
-1. Provide more precise recommendations
-2. Develop a tool to measure the tweets' sentiments, once the strategy is deployed
+I now have an initial idea for recommendations on focus areas to improve guest satistfaction. 
+<br>My objective is now to:
+* Develop a tool to identify unsatisfied customer reviews in real time
 
-Because it is important to measure both sentiments: whether they are positive, or negative, the evaluation metrics we will focus on will be accuracy and F1. 
-<br>In addition, the dataset is highly imbalanced: 67% of tweets are not positive. This is natural to have more reviews around negative than positives and we expect new unseen data to have similar distributions.  
-<br>Accuracy score by itself might be misleading, while F1 considers both false positives and false negatives. 
+Incorrectly identifying a guest as satisfied when they weren't would lead in a detractor posting a review instead of catching them while they are in-house, and having a chance of improving their satisfaction. 
 
-As the dataset is a text, it requires a transformation before it can be used for modeling. Like other types of dataset would one-hot encoded, here, the tweets were vectorized, using the common method in natural language processing: `TfidfVectorizer`.  
+As a consequence, `recall` is the main evaluation metric for this model.
+
+
+
+As the dataset is a text, it requires a transformation before it can be used for modeling. Like other types of dataset would one-hot encoded, here, the reviews were vectorized, using the common method in natural language processing: `TfidfVectorizer`.  
 <br> It converts a collection of text documents to a matrix of tf-idf features. 
 
-* `Term-Frequency` (TF)
+* Term-Frequency
 <br>Measures how often a term (word) appears in a document
-
-* `Inverse Document Frequency` (IDF)
+* Inverse Document Frequency (IDF)
 <br>Measures the importance of a term in the entire collection of documents. 
 
-
-4 main classification models were explored: 
+7 main classification models were explored: 
 1. Multinomial Naive Bayes
-2. Decision Tree
+2. K-Nearest Neighbor 
+3. Decision Tree
 3. Random Forest 
-4. K-Nearest Neighbor 
+4. Gradient Boosting
+5. AdaBoost
+6. XGBoost
 
-The models' parameters were tuned using the following approaches:
-1. Under Sampling
-2. Hyperparameter Tuning
-    * Combinatoric Grid Searching
-
+Undersampling, stopwords, lemmatize, and hyperparameter tuning were parameters used to tune models. In addition, X_train was split with `stratify` in order to keep the distribution ratios for ech sentiment.  
 
 
 All models went through 4 steps:
@@ -213,258 +206,122 @@ All models went through 4 steps:
     2) Evaluation Metrics 
     3) Classification Report
     4) Confusion Matrix
+    5) ROC-AUCs
 
 
+The 7 models' results and their evaluation metrics are summarized below. The highest records are highlighted.
 
-### 5. a) Baseline Model with TfidfVectorizer and MultinomialNB
+  <p align="center">
+    <img src="images/all_models.PNG" />
+  </p>  
 
-### <u>1st iteration</u>: Tfidf Vectorizer with Pipeline 
-The evaluation metrics recorded for the 1st iteration were as follows:
-
-- Accuracy: 0.6724
-- F1-Score: 0.5407
-- Precision: 0.4521
-- Mean Cross-Validated Accuracy: 0.6726
-
-### <u>2nd iteration</u>: Addressing class imbalance: undersampling negative tweets
-The model does not have enough data for positive tweets, comparatively to negative ones. 
-
-As a consequence, the dataset needs to be resampled. More precisely, negative tweets need to be undersampled.
-
-Original class distribution:
-- negative    4575
-- positive    2227
-
-
-Class distribution after undersampling:
-- negative    2227
-- positive    2227
-
-
-Results for this model were:
-- Accuracy: 0.5692
-- F1-Score: 0.5806
-- Precision: 0.6030
-- Mean Cross-Validated Accuracy: 0.5706
-
-The accuracy score drastically decreased, but we now have a precision and f1 scores, indicating the 'positive sentiments' are now correctly represented.
-
-
-### <u>3rd iteration</u>: including stopwords
-We will now test fitting the vectorizer by removing the stopwords from tweets to review if this can help predictions be more accurate.
-
-- Accuracy: 0.5992
-- F1-Score: 0.6067
-- Precision: 0.6183
-- Mean Cross-Validated Accuracy: 0.6036
-
-The accuracy score now increased slightly, however it remains below just guessing the majority class.
-
-### <u>4th iteration</u>: Applying the full preprocessing to tweets
-
-- Accuracy: 0.5767
-- F1-Score: 0.5887
-- Precision: 0.6160
-- Mean Cross-Validated Accuracy: 0.5888
-
-All scores decreased, when applying the model on the full tokenized tweets.
-
-### <u>5th iteration</u>: Tuning Tfidf Vectorizer - Hyperparameter tuning
-
-The model performed better when stopwords were removed but worse when applied on the full tokenized tweets. Let's try to use combinatoric grid searching to find the best parameters for the vectorizer. 
-
-- Accuracy: 0.6631
-- F1-Score: 0.6711
-- Precision: 0.6886
-- Mean Cross-Validated Accuracy: 0.6491
-
-The classification metrics are starting to increase and are starting to show more stability, less disparity among one another.
-
-
-<p align="center">
-  <img src="images/tunedNB_cfn_matrix.PNG" />
-</p>
-
-### 5. b) TfidfVectorizer and Decision Trees
-### <u>6th iteration</u>: Decision Trees Tfidf Vectorizer
-
-Decision trees work well for understanding language because they are easy to interpret and handle the nuances in how words relate. They are good at understanding what words matter most and can deal with different types of word data without much difficulty. 
-
-
-For higher computing performance, the best parameters recorded on the vectorizer with Multinomial Naive Bayes will be kept. Only the classifier will be modified. Let's see if, by using the best TF-IDF parameters with another classifier, we can improve further these predictions.
-
-- Accuracy: 0.6750
-- F1-Score: 0.6721
-- Precision: 0.6697
-- Mean Cross-Validated Accuracy: 0.6632
-
-All scores slightly increased and remain consistent. Whether it is accuracy, F1, precision or the cross-validated accuracy, they are all in the 0.66 range as opposed to the previously recorded results. Cross-validated accuracy was in the 0.64 range, while precision was over 0.68.
-
-<p align="center">
-  <img src="images/dt_cfn_matrix.PNG" />
-</p>
-
-
-### 5. c) TfidfVectorizer and Random Forest
-### <u>7th iteration</u>: RandomForestClassifierTuning Tfidf Vectorizer
-
-Random Forest classifiers can be thought of as an extension of multiple decision trees working together together to understand language text.Let's see if, by using the best TFIDF parameters with another classifier, we can improve further these predictions.
-
-
-- Accuracy: 0.6918
-- F1-Score: 0.6796
-- Precision: 0.6760
-- Mean Cross-Validated Accuracy: 0.6861
-
-The overall scores increased, recording the highest F1 Score reached. The model still has difficulty identifying positive tweets due to the dataset imbalance.
-
-<p align="center">
-  <img src="images/confusion_matrix.png" />
-</p>
-
-
-### 5. d) TfidfVectorizer and K-Nearest Neighbor
-### <u>8th iteration</u>: TfidfVectorizer and K-Nearest Neighbor
-
-The previous model was a bit computationally expensive. Let's see if the simpler K-Nearest Neighbor classifier would improve on that end. Nevertheless, kNN makes predictions based on what similar cases around it suggest so there is a risk it captures more noise created by the imbalanced dataset, despite the undersampled negative tweets.
-
-- Accuracy: 0.6839
-- F1-Score: 0.5890
-- Precision: 0.6703
-- Mean Cross-Validated Accuracy: 0.6813
-
-
-The F1 score highly decreased compared to the Random Forest model. Indeed, the model correctly predicted 98% of negative tweets as negative - which makes sense: kNN looks at similar cases to make predictions.
-
-However the actual positive tweets predicted decreased to 8%. This model cannot be kept at the best one.
-
-<p align="center">
-  <img src="images/knn_cfn_matrix.PNG" />
-</p>
-
-
+  The most relevant ones can be summarized through the below bar chart.
+  <p align="center">
+    <img src="images/final_model_names.PNG" />
+  </p>  
+  
 
 <a id='evaluation'></a>
 ## 6. Evaluation
 ### 6. a) Final Model and Classification Metrics
 
-The model that predicts the most accurately the non functional wells is the **Random Forest** where Hyperparameters were tuned thanks to Combinatorics GridSearching. The best parameters found for this model were the following:
+The model that predicts the most accurately the detractors reviews is the **Naive Bayes Tuned with Grid Search**.
 
-
-All key classification metrics from the best models were stored into 3 variables so the four final models were compared.  
-
-### 6. b) Model Performance
 
 <u>Evaluation Metrics</u>
 
 * Evaluation Metrics on Train Data
-  - Accuracy: 0.6918
-  - F1-Score: 0.6796
-  - Precision: 0.6760
-  - Mean Cross-Validated Accuracy: 0.6861
+  - Accuracy: 0.8274
+  - Recall Detractors: 0.8615
+  - Train data: Mean Cross-Validated Accuracy: 0.8370
 
+ -  Test data: Mean Cross-Validated Accuracy: 0.8454
 
-* Evaluation Metrics on Unseen Data
- -  Accuracy: 0.6918
- -  F1-Score: 0.6796
- -  Precision: 0.6760
- -  Mean Cross-Validated Accuracy: 0.6631
-
-The model is slightly overfitting, which suggests that the model may be capturing noise in the training data that doesn't generalize well to unseen data. This might be due to undersampling of negative tweets. 
+### 6. b) Model Performance
 
 
 <p align="center">
-  <img src="images/confusion_matrix.png" />
+  <img src="images/finalmodel_confusion_matrix.png" />
 </p>
 
+<p align="center">
+  <img src="images/roc_auc_best.png" />
+</p>
+The classification report, confusion matrix and ROC-AUC summarize the evaluation of the model's performance on predicting detractors from hotel TripAdvisor reviews. 
 
-The classification report and confusion matrix summarize the evaluation of the model's performance on predicting sentiment for tweets related to technology brands (here, Google and Apple) during the SXSW conference. 
+The model performs better on predicting *detractors* sentiment. More precisely, it has a true positive rate higher for this class than for the *not_detractors*. 
 
-The model performs better on predicting *negative* sentiment tweets compared to *positive* sentiment tweets, and this is reflected in all scores. 
-F1 is the highest recorded among all models. This score is particularly useful in this dataset, as it is imbalanced, and because it considers both false positives and false negatives. 
-The overall weighted accuracy for this model is slightly below 70%. 
+This score was the focus for the evaluation of the models, as the cost of false negative is higher than the cost of false positive. If a review from a detractor was incorrectly identified as "not detractor", the hotel would miss an opportunity to transform a guest's negative experience.  
 
 
 Looking at the details by metric: 
 
-<u>F1-Score</u>:
 
-`F1-score` is the harmonic mean of precision and recall. It was defined as the main metric for this project, as the cost of false negative and false positive was similar, in the sense that both positive and negative tweets need to be accurately predicted. 
+**Accuracy**
+<br>The mode correctly identified close to 83% of all reviews. 
 
-The average weighted score recorded for F1 for the random forest model was the highest recorded, despite a larger disparity between F1 score for positive tweets and for negative tweets are more accurately predicted than positive tweets, which provides better scores for negative tweets than positive on all fronts, F1 being one of them. 
+**Recall**
+<br>86.15% of actual detractors were correctly predicted.
 
-<u>Precision</u>:
+**F1 Score**
+<br>The balance between precision and recall. It is lower (72.5%) for the detractors class, which indicates precision is lower for this class. 
 
-`Precision` measures the accuracy of the positive predictions made by the model. Precision focuses on minimizing false positives. A high precision indicates that when the model predicts a positive class, it is likely to be correct. This balances a lower recall for positive tweets, since about 54% of positive tweets predicted as positive, are likely to be correctly identified as such. 
-
-<u>Recall</u>:
-
-`Recall` measures the ability of the model to capture all the positive instances in the dataset (true positives). Once again, negative tweets are more accurately predicted than positive ones. This can be seen on the confusion matrix on the top left corner. 83% of negative tweets are correctly predicted, while less than 41% of positive tweets are correctly predicted. 
-
-<u>Accuracy</u>:
-
-Finally, `accuracy` measures the overall correctness of the model predictions. Close to 70% of all tweets were correctly identified.
-
-
-<p align="center">
-  <img src="images/the_4_models.png" />
-</p>
-
+**AUC**
+<br>The Area Under the Receiver Operating Characteristic Curve (AUC) value of 0.9145 indicates a high effectiveness in distinguishing between the two classes: `not_detractors` and `detractors`. 
+The ROC curve, which plots the true positive rate against the false positive rate, covers a significant area under the curve.
 
 
 <a id='findings_n_recommendations'></a>
 ## 7. Findings & Recommendations 
 
-### 7. a) Most Important Features
-The most important features for the model help us gather the main themes and make the recommendations previously identified, more precise.
-
-![](images/most_important_features.png)
-
-### 7. b) Recommendations
-
-To generate buzz around the launch of Samsung's new folding tablet, consider implementing the following key strategies:
-
-1. In-Person Sales and Pop-Up Stores:
-
-    * Offer exclusive early access to SXSW attendees, creating a sense of urgency and desire.
-    * Establish pop-up stores within the conference venue to further engage and captivate potential buyers.
-    * Foster anticipation by orchestrating lines, enhancing the overall attraction and exclusivity.
-    * Innovative Conference App:
-
-2. Develop a cutting-edge mobile app for both phones and tablets, enhancing conference access and engagement.
-    * Leverage the app to tap into attendees' creativity, creating a platform for discussion and interaction.
-
-3. Strategic Hashtag Campaign:
-    * Take inspiration from the excitement around social network launches, such as Google Circles, by creating a dedicated hashtag.
-    * Recognize the evolving landscape of social networks and harness the hashtag to generate excitement and participation.
-    * Position the hashtag as a means to win the new tablet, fostering eagerness among the audience.
-
-4. Exclusive Party Integration:
-
-    * Utilize the app to create exclusivity, making it a prerequisite for access to an exclusive party.
-    (Blend the party experience with the hashtag campaign, encouraging attendees to use the hashtag for a chance to access the tablet release concert).
-    * Strive to surpass the success of the previous year's concert, ensuring the party becomes a highlight of the event.
+### 7. Recommendations 
 
 
-These refined strategies aim to capture the essence of successful past events, combining physical presence, technological innovation, social media engagement, and exclusive experiences to maximize the impact of the tablet launch at the SXSW conference.
+The advantage of our new service is the deployment can be immediate. Based on historical guest complaints, below are the areas we recommend to focus on to immediately start improving guest satisfactions. 
+
+1. Focus on resort hotels
+<br>→ These hotels have the most unsatisfied guests
+2. Develop a maintenance program with engineering teams
+<br>→ Appearance & dysfunctionality cause frustrations
+3. Train staff to enhance friendliness
+<br>→ Also ensure more languages are spoken
+4. Respond to reviews
+<br>→ Detractors advise to read reviews 
+
+
+<p align="center">
+  <img src="images/top_10_bigrams.png" />
+</p>  
+
+
+These areas of focus are based on the most common bigrams from detractors. 
+
 
 
 <a id='limits_n_next_steps'></a>
-## 8. Limits & Next Steps
+## 8. Next Steps & Limits
 
-Despite providing us a good idea for recommendations, the accuracy and F1 score remain low, we would aim at reaching above 70%. 
+* **Deployment**
+<br>Once the immediates areas of focus are implemented, the next step is only to:
 
-To do this in the future we would:
-* Synthetically Oversample the Minority class
-<br> In addition to undersampling tweets to a certain level, positive tweets should be synthetically oversampled as well to try to draw better results. 
-
-* Stratified Undersampling:
-<br> Stratified undersampling may protect from the importance given to single words, by keeping the ratio of words or token
-
-* Hyperparameters Tuning
-<br> We searched best parameters for the vectorizer only, but not for the classifier. By changing these, the accuracy, could be improved 
+- display the QR code at strategic locations for guests to access TripAdvisor to give real time feedback
+- only provide us with 2 contacts details. These persons will receive the alerts when guests provide negative feedback 
+- communicate about this new tool to your teams 
 
 
+Very quickly, you will see the share of negative reviews decrease in your hotels, and your NPS score increase!  
+
+<br>Extract the reviews specifically for your hotel chains, to ensure the model is based on your specific reviews. We, at TripAdvisor can do this for you for a supplement.  
+
+<br>
+
+* **Limits** 
+<br>The model provided very high scores for recommendations. If basing the model on your own hotel chains' reviews is not an option, ensure the most recent data for reviews is taken into account. 
+
+<br>
+
+* **Next Steps**
+<br> Deploy the model for a ternary classification, following the actual sentiments defined by NPS score: `promoters`, `neutral`, `detractors`.
 
 ## For More Information 
 See the full analysis and code in the [Jupyter Notebook](pdfs/notebook.pdf) as well as summary in this [presentation](pdfs/presentation.pdf).
