@@ -34,7 +34,7 @@ The organization of this notebook follows the CRoss Industry Standard Process fo
 <a id='business_understanding'></a>
 ## 2. Business Understanding
 
-The increasing significance of online reputation and social media in the hospitality industry has become integral to a hotel's operational and financial success. The [report] (https://ecornell-impact.cornell.edu/the-impact-of-social-media-on-lodging-performance/) from Cornell's Center for Hospitality Research highlights the rising trend of consumers relying on online reviews during hotel bookings. The study reveals the link between a hotel's online reputation and its pricing, occupancy rates and revenue performance. 
+The increasing significance of online reputation and social media in the hospitality industry has become integral to a hotel's operational and financial success. The [report](https://ecornell-impact.cornell.edu/the-impact-of-social-media-on-lodging-performance/) from Cornell's Center for Hospitality Research highlights the rising trend of consumers relying on online reviews during hotel bookings. The study reveals the link between a hotel's online reputation and its pricing, occupancy rates and revenue performance. 
 
 Recognizing the challenges faced by hotels in managing online reputation, a **new branch of TripAdvisor** is now dedicated to supporting hotels in identifying and **improving unsatisfied guests' experience** before they leave. 
 <br>Hyatt's corporate director of guest experience hired us to drive the strategy. 
@@ -50,7 +50,7 @@ Quickly and durably enhance guest satisfaction and improve online reputation
 
 1. improve guest experience 
     * by offering customized recommendations targeting areas that historically caused guest complaints 
-<br>
+
 2. increase online reputation 
     * reduce the share of negative reviews
     * by identifying unsatisfied guests through real-time reviews, providing an opportunity to create a better experience
