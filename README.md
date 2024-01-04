@@ -43,16 +43,21 @@ Through real-time guest reviews and a sophisticated algorithm, the platform aler
 
 
 <u>The Task</u>
-<br>Quickly and durably enhance guest satisfaction and improve online reputation
+
+Quickly and durably enhance guest satisfaction and improve online reputation
 
 <u>Objectives</u>
-1. improve guest experience
-    * offering customized recommendations targeting areas that historically caused guest complaints 
-2. reduce guest complaints
-    * identifying unsatisfied guests through real-time reviews, providing an opportunity to create a better experience
+
+1. improve guest experience 
+    * by offering customized recommendations targeting areas that historically caused guest complaints 
+<br>
+2. increase online reputation 
+    * reduce the share of negative reviews
+    * by identifying unsatisfied guests through real-time reviews, providing an opportunity to create a better experience
 
 <u>Target Audience</u>
-<br>Hyatt's corporate director of guest experience
+
+Hyatt's corporate director of guest experience
 
 <a id='data_understanding'></a>
 ## 3. Data Understanding
