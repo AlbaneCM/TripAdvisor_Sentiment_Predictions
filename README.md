@@ -1,13 +1,3 @@
-<!-- <div style="display: flex;text-align: left; ">
-     <h1>Predicting TripAdvisor Review Sentiment</h1> 
-     <div style="margin-right: 5px; margin-left: -29px">
-        <img src="images/tripadvisor.jpg" alt="Alt text" width="100"/>
-    </div> 
-    <h1>Predicting TripAdvisor Review Sentiment</h1> 
-</div> -->
-
-
-
 <div style="margin-right: 5px; margin-left: -29px; display: flex; text-align: left; white-space: nowrap;">
   <h1 style="white-space: nowrap;">Predicting TripAdvisor Review Sentiment</h1>
   <img src="images/tripadvisor.jpg" alt="Alt text" width="100"/>
